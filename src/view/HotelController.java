@@ -35,6 +35,10 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import entity.Hotel;
+import javafx.animation.FadeTransition;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.util.Duration;
 import service.HotelService;
 
 /**
@@ -86,6 +90,8 @@ public class HotelController implements Initializable {
     private Button add;
     private Path to;
     private Path from;
+    @FXML
+    private Button adc1;
 
     /**
      * Initializes the controller class.
@@ -253,6 +259,18 @@ public class HotelController implements Initializable {
         hs.addHotel(h);
         showHotel();
 
+    }
+
+    @FXML
+    private void roomz(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("room.fxml"));
+        Parent root = loader.load();
+        hotel_tv.getScene().setRoot(root);
+
+        FadeTransition fadeIn = new FadeTransition(Duration.seconds(1), root);
+        fadeIn.setFromValue(0);
+        fadeIn.setToValue(1);
+        fadeIn.play();
     }
 
 }
