@@ -184,7 +184,7 @@ public class HotelController implements Initializable {
                 };
             });
 
-            tv_name.setCellFactory(TextFieldTableCell.forTableColumn());
+           
             
             
             //partie recherche
@@ -219,6 +219,8 @@ public class HotelController implements Initializable {
         } catch (SQLException ex) {
             System.out.println(ex);
         }
+        //edit
+        tv_name.setCellFactory(TextFieldTableCell.forTableColumn());
         tv_name.setOnEditCommit((e) -> {
 
             if (ss.updateName(hotel_tv.getItems().get(e.getTablePosition().getRow()), e.getNewValue())) {
