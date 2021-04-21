@@ -11,6 +11,9 @@ import java.sql.SQLException;
 
 import projet.util.connexionbd;
 import entity.Room;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -99,6 +102,25 @@ return ok;
         }
         return ok;
     }
-    
+         
+         
+         
+          public List<Integer> afficherALLID() {
+        List<Integer> listID = new ArrayList<>();
+
+        try {
+            String requete = "SELECT id FROM room";
+            Statement st = c.createStatement();
+            ResultSet rs = st.executeQuery(requete);
+            while (rs.next()) {
+
+                listID.add(rs.getInt(1));
+            }
+
+        } catch (SQLException ex) {
+            System.err.println(ex.getMessage());
+        }
+        return listID;
+    }  
     
 }
