@@ -220,6 +220,18 @@ public class GalleryController implements Initializable {
 
     }
 
+    @FXML
+    private void addReservation(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("reservationController.fxml"));
+        Parent root = loader.load();
+        tGallery.getScene().setRoot(root);
+
+        FadeTransition fadeIn = new FadeTransition(Duration.seconds(1), root);
+        fadeIn.setFromValue(0);
+        fadeIn.setToValue(1);
+        fadeIn.play();
+    }
+
 
 
     

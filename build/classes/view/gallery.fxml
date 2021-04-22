@@ -25,5 +25,6 @@
       <Button fx:id="add" layoutX="824.0" layoutY="475.0" mnemonicParsing="false" onAction="#addGallery" text="Button" />
       <ComboBox fx:id="idH" layoutX="773.0" layoutY="252.0" prefWidth="150.0" promptText="idH" />
       <ImageView fx:id="view_image_gallery" fitHeight="150.0" fitWidth="200.0" layoutX="772.0" layoutY="563.0" pickOnBounds="true" preserveRatio="true" />
+      <Button layoutX="340.0" layoutY="653.0" mnemonicParsing="false" onAction="#addReservation" text="Button" />
    </children>
 </AnchorPane>
