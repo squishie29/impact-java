@@ -22,5 +22,6 @@
       <ComboBox fx:id="roomId" layoutX="954.0" layoutY="345.0" prefWidth="150.0" promptText="Room id" />
       <TextField fx:id="search" layoutX="324.0" layoutY="90.0" />
       <Button layoutX="412.0" layoutY="703.0" mnemonicParsing="false" onAction="#galleriez" text="Button" />
+      <Button layoutX="528.0" layoutY="90.0" mnemonicParsing="false" onAction="#rechercheOption" text="Button" />
    </children>
 </AnchorPane>

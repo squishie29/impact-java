@@ -9,6 +9,7 @@ import entity.Options;
 import entity.Room;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
@@ -31,6 +32,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.util.Duration;
+import projet.util.connexionbd;
 import service.OptionsService;
 import service.RoomService;
 
@@ -57,6 +59,7 @@ public class OptionsController implements Initializable {
     private ComboBox<Integer> roomId;
     @FXML
     private TextField search;
+    ObservableList<Options> list = FXCollections.observableArrayList();
 
     /**
      * Initializes the controller class.
@@ -95,6 +98,7 @@ public class OptionsController implements Initializable {
                 listOptions.add(r1);
 
             }
+            tOptions.setItems(listOptions);
 
 //****DELETE*****        
 
@@ -117,35 +121,8 @@ public class OptionsController implements Initializable {
                 };
             });
 
+
             
-//****SEARCH FILTRED****
-            FilteredList<Options> filteredData = new FilteredList<>(listOptions, b -> true);
-            search.textProperty().addListener((observable, oldValue, newValue) -> {
-                filteredData.setPredicate(Options -> {
-                    // If filter text is empty, display all persons.
-
-                    if (newValue == null || newValue.isEmpty()) {
-                        return true;
-                    }
-
-                    // Compare first name and last name of every person with filter text.
-                    String lowerCaseFilter = newValue.toLowerCase();
-
-                    if (Options.getDescription().toLowerCase().indexOf(lowerCaseFilter) != -1) {
-                        return true; // Filter matches first name.
-                    } //				else if (String.valueOf(reclamation.getSalary()).indexOf(lowerCaseFilter)!=-1)
-                    //				     return true;
-                    else {
-                        return false; // Does not match.
-                    }
-                });
-            });
-            SortedList<Options> sortedData = new SortedList<>(filteredData);
-
-            // 4. Bind the SortedList comparator to the TableView comparator.
-            // 	  Otherwise, sorting the TableView would have no effect.
-            sortedData.comparatorProperty().bind(tOptions.comparatorProperty());
-            tOptions.setItems(filteredData);
 
         } catch (SQLException ex) {
             System.out.println(ex);
@@ -187,6 +164,23 @@ public class OptionsController implements Initializable {
         fadeIn.setFromValue(0);
         fadeIn.setToValue(1);
         fadeIn.play();
+    }
+
+    @FXML
+    private void rechercheOption(ActionEvent event) throws SQLException {
+         tOptions.getItems().clear();
+            Connection c = connexionbd.getinstance().getConn();
+            ResultSet rs = c.createStatement().executeQuery("SELECT * FROM options WHERE description like'%"+search.getText()+"%'");
+            while(rs.next()){
+                list.add(new Options(rs.getInt(1), rs.getString(2), rs.getInt(3)));
+
+            }
+
+
+            idO.setCellValueFactory(new PropertyValueFactory<>("id"));
+            descO.setCellValueFactory(new PropertyValueFactory<>("description"));
+            idR.setCellValueFactory(new PropertyValueFactory<>("room_id_id"));
+                tOptions.setItems(list);
     }
     
 }
