@@ -5,6 +5,10 @@
  */
 package view;
 
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfWriter;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -35,10 +39,17 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import entity.Hotel;
+import java.awt.Desktop;
+import java.io.FileOutputStream;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.animation.FadeTransition;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.util.Duration;
+import projet.util.connexionbd;
 import service.HotelService;
 
 /**
@@ -273,6 +284,69 @@ public class HotelController implements Initializable {
         fadeIn.setFromValue(0);
         fadeIn.setToValue(1);
         fadeIn.play();
+    }
+
+    @FXML
+    private void export(ActionEvent event) throws DocumentException {
+        try {
+            String file_name = ("evennement.pdf");
+            Document document = new Document();
+            
+            PdfWriter.getInstance(document, new FileOutputStream(file_name));
+            
+            document.open();
+            
+            document.addTitle("HOTELS ");
+            
+                 Paragraph paraHeader1 = new Paragraph("HOTELS");
+            document.add(paraHeader1);
+           //         ObservableList<Message> list =pcr.getMessage();
+                  // while(list)
+
+            
+                 // ObservableList<Message> ProductList = FXCollections.observableArrayList();
+       // String requete = "SELECT nom,destination,prix,nbr_places FROM event where id="+id+"";
+         String requete = "SELECT  nom,destination,prix,nbr_places FROM event where id";
+        try {
+            Connection c = connexionbd.getinstance().getConn();
+            
+            PreparedStatement pst = c.prepareStatement("SELECT name,stars,description,adress FROM hotel where id");
+            
+
+            //Statement st;
+            try {
+
+                ResultSet rs = pst.executeQuery();
+                
+                Hotel e;
+
+                while (rs.next()) {
+                  
+               Paragraph paraHeader11 = new Paragraph(((rs.getString("name").concat("    ")).concat(rs.getString("stars"))).concat("   ".concat(rs.getString("description"))).concat("   ".concat(rs.getString("adress"))));
+            document.add(paraHeader11);
+                }
+
+            } catch (DocumentException | SQLException ex) {
+                
+
+            }
+        } catch (SQLException ex) {
+        }
+                  
+                  
+                  
+                  
+                  
+                  
+                   
+            
+            
+            
+            document.close();
+            Desktop.getDesktop().open(new File(file_name));
+        } catch (IOException ex) {
+            
+        }
     }
 
 }

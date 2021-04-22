@@ -11,7 +11,7 @@
    <children>
       <TableView fx:id="tRoom" editable="true" layoutX="32.0" layoutY="195.0" prefHeight="477.0" prefWidth="912.0">
         <columns>
-          <TableColumn fx:id="idR" prefWidth="75.0" text="id" />
+          <TableColumn fx:id="idR" prefWidth="75.0" text="id" visible="false" />
           <TableColumn fx:id="typeR" prefWidth="75.0" text="type" />
             <TableColumn fx:id="descR" prefWidth="300.0" text="description" />
             <TableColumn fx:id="nbR" minWidth="0.0" prefWidth="140.0" text="nombre personnes" />

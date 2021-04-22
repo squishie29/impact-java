@@ -12,7 +12,7 @@
    <children>
       <TableView fx:id="tGallery" editable="true" layoutX="65.0" layoutY="142.0" prefHeight="439.0" prefWidth="674.0">
         <columns>
-          <TableColumn fx:id="idG" prefWidth="107.0" text="id" />
+          <TableColumn fx:id="idG" prefWidth="107.0" text="id" visible="false" />
           <TableColumn fx:id="imgG" minWidth="0.0" prefWidth="197.0" text="image" />
             <TableColumn fx:id="idHotel" minWidth="0.0" prefWidth="137.0" text="id hotel" />
             <TableColumn fx:id="delete" minWidth="0.0" prefWidth="115.0" text="actions" />
