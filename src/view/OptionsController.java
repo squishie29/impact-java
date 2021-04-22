@@ -181,6 +181,7 @@ public class OptionsController implements Initializable {
             descO.setCellValueFactory(new PropertyValueFactory<>("description"));
             idR.setCellValueFactory(new PropertyValueFactory<>("room_id_id"));
                 tOptions.setItems(list);
+                    
     }
     
 }

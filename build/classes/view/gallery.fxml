@@ -10,7 +10,7 @@
 
 <AnchorPane id="AnchorPane" fx:id="anchorpane" prefHeight="777.0" prefWidth="1023.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.GalleryController">
    <children>
-      <TableView fx:id="tGallery" layoutX="65.0" layoutY="142.0" prefHeight="439.0" prefWidth="674.0">
+      <TableView fx:id="tGallery" editable="true" layoutX="65.0" layoutY="142.0" prefHeight="439.0" prefWidth="674.0">
         <columns>
           <TableColumn fx:id="idG" prefWidth="107.0" text="id" />
           <TableColumn fx:id="imgG" minWidth="0.0" prefWidth="197.0" text="image" />
