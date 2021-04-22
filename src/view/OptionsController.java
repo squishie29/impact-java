@@ -7,17 +7,21 @@ package view;
 
 import entity.Options;
 import entity.Room;
+import java.io.IOException;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
+import javafx.animation.FadeTransition;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableCell;
@@ -26,6 +30,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.util.Duration;
 import service.OptionsService;
 import service.RoomService;
 
@@ -86,7 +91,7 @@ public class OptionsController implements Initializable {
                
                 r1.setDescription(resultset.getString("description"));
                 r1.setRoom_id_id(resultset.getInt("room_id_id"));
-                System.out.println(resultset.getInt("room_id_id"));
+                
                 listOptions.add(r1);
 
             }
@@ -170,6 +175,18 @@ public class OptionsController implements Initializable {
         os.addOptions(o);
         showOptions(); 
         
+    }
+
+    @FXML
+    private void galleriez(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("gallery.fxml"));
+        Parent root = loader.load();
+        tOptions.getScene().setRoot(root);
+
+        FadeTransition fadeIn = new FadeTransition(Duration.seconds(1), root);
+        fadeIn.setFromValue(0);
+        fadeIn.setToValue(1);
+        fadeIn.play();
     }
     
 }
