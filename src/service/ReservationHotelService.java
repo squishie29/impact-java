@@ -88,6 +88,22 @@ public class ReservationHotelService {
         }
 return ok;
     }
+       
+       //Update name hotel.
+       public boolean updateUser(ReservationHotel h, Integer newValue) {
+      Boolean ok = false;
+        try {
+            PreparedStatement req = c.prepareStatement("update reservation_hotel set user_id_id=? where id = ? ");
+            
+       req.setInt(1, newValue);
+       req.setInt(2, h.getId());
+       req.executeUpdate();
+        ok = true;
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        }
+return ok;
+    }
     
 
     
@@ -124,5 +140,20 @@ return ok;
         }
         return listID;
     }  
+          public boolean updateDateDebut(ReservationHotel s, Date newValue) {
+      Boolean ok = false;
+        try {
+            PreparedStatement req = c.prepareStatement("update reservation_hotel set debut=? where id = ? ");
+            
+       req.setDate(1, newValue);
+       req.setInt(2, s.getId());
+       req.executeUpdate();
+        ok = true;
+        } catch (SQLException ex) {
+            System.out.println(ex);
+            
+        }
+return ok;
+    }
     
 }

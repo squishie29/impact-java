@@ -11,15 +11,19 @@ import java.net.URL;
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
+import javafx.concurrent.Worker;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableCell;
@@ -28,6 +32,11 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.scene.layout.VBox;
+import javafx.scene.web.WebEngine;
+import javafx.scene.web.WebView;
+import javafx.stage.Stage;
+import javafx.util.converter.IntegerStringConverter;
 import service.HotelService;
 import service.ReservationHotelService;
 import service.RoomService;
@@ -48,9 +57,9 @@ public class ReservationControllerController implements Initializable {
     @FXML
     private TableColumn<ReservationHotel, Integer> roomR;
     @FXML
-    private TableColumn<ReservationHotel, Date> debutR;
+    private TableColumn<ReservationHotel, java.sql.Date> debutR;
     @FXML
-    private TableColumn<ReservationHotel, Date> finR;
+    private TableColumn<ReservationHotel, java.sql.Date> finR;
     @FXML
     private TableColumn<ReservationHotel, String> confirmationR;
     @FXML
@@ -69,6 +78,12 @@ public class ReservationControllerController implements Initializable {
     private Button update;
     @FXML
     private TextField search;
+    
+    public static Boolean recaptchaisvalid = false;
+    int recaptchastate = 0;
+    @FXML
+    private CheckBox inputrecaptcha;
+    
 
     /**
      * Initializes the controller class.
@@ -110,7 +125,83 @@ public class ReservationControllerController implements Initializable {
             }
 
         
+            debutR.setCellFactory((param) -> {
 
+                return new TableCell<ReservationHotel, java.sql.Date>() {
+                    @Override
+                    protected void updateItem(java.sql.Date item, boolean empty) {
+                        super.updateItem(item, empty);
+                        setGraphic(null);
+                        if (item != null && !empty) {
+                            LocalDate today = LocalDate.now();
+                            DatePicker picker = new DatePicker();
+                            //LocalDate date = LocalDate.parse("2020-01-08");
+                            picker.setValue(item.toLocalDate());
+                            setGraphic(picker);
+                            picker.setOnAction(t -> {
+                                if (picker.getValue().isAfter(today) || picker.getValue().isEqual(today)) {
+                                commitEdit(item);
+                                //System.out.println(item);
+                                ss.updateDateDebut(tReservationHotel.getItems().get(getIndex()), java.sql.Date.valueOf(picker.getValue()));
+                                tReservationHotel.getItems().get(getIndex()).setDebut(java.sql.Date.valueOf(picker.getValue()));
+                                }
+                                else
+                                {
+                                    System.out.println("hehehehe boy");
+                                    //Alerts.warning("Invalid Date", "Start Date value cannot be before current date.");
+                                    tReservationHotel.refresh();
+                                }
+                            });
+
+                            // Addtv.refresh();
+                            picker.setValue(tReservationHotel.getItems().get(getIndex()).getDebut().toLocalDate());
+                            setGraphic(picker);
+                            //System.out.println(picker.getValue());
+
+                        }
+
+                    }
+
+                };
+            });
+
+         /*   AddColDatefin.setCellFactory((param) -> {
+
+                return new TableCell<Add, java.sql.Date>() {
+                    @Override
+                    protected void updateItem(java.sql.Date item, boolean empty) {
+                        super.updateItem(item, empty);
+                        setGraphic(null);
+                        if (item != null && !empty) {
+                            LocalDate today = LocalDate.now();
+                            DatePicker picker = new DatePicker();
+                            //LocalDate date = LocalDate.parse("2020-01-08");
+                            picker.setValue(item.toLocalDate());
+                            setGraphic(picker);
+                            picker.setOnAction(t -> {
+                                if (picker.getValue().isAfter(today)) {
+                                commitEdit(item);
+                                //System.out.println(item);
+                                ss.updateDateFin(Addtv.getItems().get(getIndex()), java.sql.Date.valueOf(picker.getValue()));
+                                Addtv.getItems().get(getIndex()).setDate_fin(java.sql.Date.valueOf(picker.getValue()));
+                                }
+                                else
+                                {
+                                    Alerts.warning("Invalid Date", "End Date value cannot be before Start Date.");
+                                    Addtv.refresh();
+                                }
+                            });
+                            // Addtv.refresh();
+                            picker.setValue(Addtv.getItems().get(getIndex()).getDate_fin().toLocalDate());
+                            setGraphic(picker);
+                            //System.out.println(picker.getValue());
+                        }
+
+                    }
+
+                };
+            });   
+            */
             delete.setCellFactory((param) -> {
                 return new TableCell() {
                     @Override
@@ -133,12 +224,17 @@ public class ReservationControllerController implements Initializable {
             confirmationR.setCellFactory(TextFieldTableCell.forTableColumn());
             
             
+            userR.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
+
+            
             
             tReservationHotel.setItems(listReservationHotel);
 
         } catch (SQLException ex) {
             System.out.println(ex);
         }
+        
+        
         confirmationR.setOnEditCommit((e) -> {
 
             if (ss.updateConfirmation(tReservationHotel.getItems().get(e.getTablePosition().getRow()), e.getNewValue())) {
@@ -146,7 +242,23 @@ public class ReservationControllerController implements Initializable {
             }
             tReservationHotel.refresh();
         });
+        
+        userR.setOnEditCommit((e) -> {
+
+            if (ss.updateUser(tReservationHotel.getItems().get(e.getTablePosition().getRow()), e.getNewValue())) {
+                tReservationHotel.getItems().get(e.getTablePosition().getRow()).setUser_id_id(e.getNewValue());
+            }
+            tReservationHotel.refresh();
+        });
+        
+
+        
+        
+        
+
     }
+    
+    
     
 
     @FXML
@@ -164,8 +276,73 @@ public class ReservationControllerController implements Initializable {
         h.setFin(java.sql.Date.valueOf(fin.getValue()));
         h.setConfirmation((confirmation.getText()));
         
-        hs.addReservationHotel(h);
+        if(recaptchaisvalid == true){
+            hs.addReservationHotel(h);
+        }
+        else 
+            System.out.println("no no no");
+        
         showReservationHotel();
+    }
+    
+    public static void openrecaptchabox() {
+        Stage stageRecap = new Stage();
+        WebView webView = new WebView();
+
+        WebEngine webEngine = webView.getEngine();
+        // Delete cache for navigate back
+        webEngine.load("about:blank");
+        // Delete cookies 
+        java.net.CookieHandler.setDefault(new java.net.CookieManager());
+
+        webEngine.load("http://ramy");
+
+        VBox vBox = new VBox(webView);
+        Scene scene = new Scene(vBox, 350, 500);
+        stageRecap.setScene(scene);
+        //stageRecap.initStyle(StageStyle.UNDECORATED);
+        stageRecap.show();
+        webEngine.getLoadWorker().stateProperty().addListener((observable, oldValue, newValue) -> {
+            if (Worker.State.SUCCEEDED.equals(newValue)) {
+                String sss = webEngine.getLocation();
+                if (sss.contains("success")) {
+                    recaptchaisvalid = true;
+                    stageRecap.close();
+                }
+                //System.out.println(sss);
+            }
+        });
+
+    }
+
+    @FXML
+    private void listen(ActionEvent event) {
+        Stage stageRecap = new Stage();
+        WebView webView = new WebView();
+
+        WebEngine webEngine = webView.getEngine();
+        // Delete cache for navigate back
+        webEngine.load("about:blank");
+        // Delete cookies 
+        java.net.CookieHandler.setDefault(new java.net.CookieManager());
+
+        webEngine.load("http://ramy");
+
+        VBox vBox = new VBox(webView);
+        Scene scene = new Scene(vBox, 350, 500);
+        stageRecap.setScene(scene);
+        //stageRecap.initStyle(StageStyle.UNDECORATED);
+        stageRecap.show();
+        webEngine.getLoadWorker().stateProperty().addListener((observable, oldValue, newValue) -> {
+            if (Worker.State.SUCCEEDED.equals(newValue)) {
+                String sss = webEngine.getLocation();
+                if (sss.contains("success")) {
+                    recaptchaisvalid = true;
+                    stageRecap.close();
+                }
+                System.out.println(sss);
+            }
+        });
     }
     
 }
