@@ -5,6 +5,7 @@
  */
 package view;
 
+import com.twilio.Twilio;
 import entity.ReservationHotel;
 import entity.Room;
 import java.net.URL;
@@ -87,6 +88,11 @@ public class ReservationControllerController implements Initializable {
     int recaptchastate = 0;
     @FXML
     private CheckBox inputrecaptcha;
+    
+    public static final String ACCOUNT_SID = "AC6eb7ffebcd4e5112b2823056010a94c0";
+    public static final String AUTH_TOKEN = "78fa4a0360f61107dcb69ebcc6bff907";
+    @FXML
+    private TextField admin;
     
 
     /**
@@ -301,6 +307,7 @@ public class ReservationControllerController implements Initializable {
             System.out.println("no no no");
         
         showReservationHotel();
+        envoyerSMS();
     }
     
 
@@ -332,6 +339,17 @@ public class ReservationControllerController implements Initializable {
                 //System.out.println(sss);
             }
         });
+    }
+    
+    public void envoyerSMS() {
+        Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
+        com.twilio.rest.api.v2010.account.Message message = com.twilio.rest.api.v2010.account.Message.creator( //preparation d'un nouveau msg
+                new com.twilio.type.PhoneNumber("+216" + admin.getText()), // num reception
+                new com.twilio.type.PhoneNumber("+12054489231"), // num d'envoie
+                "Reservation de " +user.getValue()+" sur chambre id" +room.getValue()+"de "+debut.getValue()+"jusqu'a"+fin.getValue()+"confirmé") // le msg
+                .create(); //creation
+        System.out.println(userR.getText());
+        System.out.println(message.getSid());
     }
     
 }

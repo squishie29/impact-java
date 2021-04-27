@@ -31,5 +31,6 @@
       <ComboBox fx:id="user" layoutX="794.0" layoutY="179.0" prefWidth="150.0" />
       <ComboBox fx:id="room" layoutX="794.0" layoutY="260.0" prefWidth="150.0" />
       <CheckBox fx:id="inputrecaptcha" layoutX="840.0" layoutY="561.0" mnemonicParsing="false" onAction="#listen" text="Human verification" />
+      <TextField fx:id="admin" layoutX="795.0" layoutY="62.0" />
    </children>
 </AnchorPane>
