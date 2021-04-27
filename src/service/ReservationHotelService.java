@@ -15,6 +15,7 @@ import java.sql.Date;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Function;
 
 /**
  *
@@ -23,6 +24,7 @@ import java.util.List;
 public class ReservationHotelService {
     // Connection avec la base de donnée.
     Connection c = connexionbd.getinstance().getConn();
+    private String ch;
     
     //Ajouter un hotel à la base de donnée.
     public void addReservationHotel(ReservationHotel h) {
@@ -44,7 +46,7 @@ public class ReservationHotelService {
     public ResultSet getAll() {
          
         try {
-            PreparedStatement req = c.prepareStatement("SELECT * FROM reservation_hotel ");
+            PreparedStatement req = c.prepareStatement("SELECT R.user_id_id,R.id,R.room_id_id,R.debut,R.fin,R.confirmation,U.email FROM `reservation_hotel` R LEFT OUTER JOIN `utilisateur` U ON R.user_id_id = U.id ");
             ResultSet rs = req.executeQuery();
             return rs;
         } catch (SQLException ex) {
@@ -72,6 +74,35 @@ public class ReservationHotelService {
         }
         return h;
     }
+    
+    
+    
+       //Retourne une un objet de type hotel selon l'id passer en argument.
+    public String getMail(int id) {
+        //ReservationHotel h = new ReservationHotel();
+        try {
+            PreparedStatement req = c.prepareStatement("select * from utilisateur where id=?  ");
+            req.setInt(1, id);
+            ResultSet rs = req.executeQuery();
+            rs.next();
+          /*  rs.next();
+            h.setId(rs.getInt("id"));
+            h.setUser_id_id(rs.getInt("user_id_id"));
+            h.setRoom_id_id(rs.getInt("room_id_id"));
+            h.setDebut(rs.getDate("debut"));
+            h.setFin(rs.getDate("fin"));
+            h.setConfirmation(rs.getString("confirmation"));*/
+           ch=rs.getString("email");
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        }
+        
+        return ch;
+    }
+    
+    
+    
+    
     
     //Update name hotel.
        public boolean updateConfirmation(ReservationHotel h, String newValue) {
@@ -140,10 +171,27 @@ return ok;
         }
         return listID;
     }  
-          public boolean updateDateDebut(ReservationHotel s, Date newValue) {
+          
+public boolean updateDateDebut(ReservationHotel s, Date newValue) {
       Boolean ok = false;
         try {
             PreparedStatement req = c.prepareStatement("update reservation_hotel set debut=? where id = ? ");
+            
+       req.setDate(1, newValue);
+       req.setInt(2, s.getId());
+       req.executeUpdate();
+        ok = true;
+        } catch (SQLException ex) {
+            System.out.println(ex);
+            
+        }
+return ok;
+    }
+
+public boolean updateDateFin(ReservationHotel s, Date newValue) {
+      Boolean ok = false;
+        try {
+            PreparedStatement req = c.prepareStatement("update reservation_hotel set fin=? where id = ? ");
             
        req.setDate(1, newValue);
        req.setInt(2, s.getId());

@@ -18,6 +18,7 @@ public class ReservationHotel {
     private Date debut;
     private Date fin;
     private String confirmation;
+    private String email;
 
     @Override
     public String toString() {
@@ -45,6 +46,16 @@ public class ReservationHotel {
     public void setUser_id_id(Integer user_id_id) {
         this.user_id_id = user_id_id;
     }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+    
+    
 
     public Integer getRoom_id_id() {
         return room_id_id;

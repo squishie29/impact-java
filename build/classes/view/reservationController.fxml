@@ -20,6 +20,7 @@
             <TableColumn fx:id="finR" prefWidth="100.0" text="fin" />
             <TableColumn fx:id="confirmationR" prefWidth="107.0" text="confirmation" />
             <TableColumn fx:id="delete" prefWidth="99.0" text="delete" />
+            <TableColumn fx:id="emailR" prefWidth="107.0" text="emails" />
         </columns>
       </TableView>
       <DatePicker fx:id="debut" layoutX="794.0" layoutY="387.0" />

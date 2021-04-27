@@ -13,6 +13,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -65,7 +66,10 @@ public class ReservationControllerController implements Initializable {
     @FXML
     private TableColumn<ReservationHotel, Button> delete;
     @FXML
-    private ComboBox<Integer> user;
+    private TableColumn<ReservationHotel, String> emailR;
+    
+    @FXML
+    private ComboBox<String> user;
     @FXML
     private ComboBox<Integer> room;
     @FXML
@@ -105,7 +109,10 @@ public class ReservationControllerController implements Initializable {
         //List<Reclamation> lr = new ArrayList<Reclamation>();
         ObservableList<ReservationHotel> listReservationHotel = FXCollections.observableArrayList();
         try {
+            
+            
             idR.setCellValueFactory(new PropertyValueFactory<>("id"));
+            emailR.setCellValueFactory(new PropertyValueFactory<>("email"));
             userR.setCellValueFactory(new PropertyValueFactory<>("user_id_id"));
             roomR.setCellValueFactory(new PropertyValueFactory<>("room_id_id"));
             debutR.setCellValueFactory(new PropertyValueFactory<>("debut"));
@@ -114,17 +121,28 @@ public class ReservationControllerController implements Initializable {
             while (resultset.next()) {
                 ReservationHotel r1 = new ReservationHotel();
                 r1.setId(resultset.getInt("id"));
-               
-                r1.setUser_id_id(resultset.getInt("user_id_id"));
+                
+                
+                //System.out.println(ss.getMail(resultset.getInt("user_id_id")));
+               //String rep=ss.getMail(resultset.getInt("user_id_id"));
+                //test.setCellValueFactory(x -> new SimpleObjectProperty<>(rep));
+                
+                //r1.setTest(ss.getMail(resultset.getInt("user_id_id")));
+                 r1.setUser_id_id(resultset.getInt("user_id_id"));
                 r1.setRoom_id_id(resultset.getInt("room_id_id"));
                 r1.setDebut(resultset.getDate("debut"));
                 r1.setFin(resultset.getDate("fin"));
                 r1.setConfirmation(resultset.getString("confirmation"));
+                
+                r1.setEmail(resultset.getString("email"));
+                
+                System.out.println(resultset.getString("email"));
+                
                 listReservationHotel.add(r1);
 
             }
 
-        
+            //modifier 
             debutR.setCellFactory((param) -> {
 
                 return new TableCell<ReservationHotel, java.sql.Date>() {
@@ -165,9 +183,9 @@ public class ReservationControllerController implements Initializable {
                 };
             });
 
-         /*   AddColDatefin.setCellFactory((param) -> {
+           finR.setCellFactory((param) -> {
 
-                return new TableCell<Add, java.sql.Date>() {
+                return new TableCell<ReservationHotel, java.sql.Date>() {
                     @Override
                     protected void updateItem(java.sql.Date item, boolean empty) {
                         super.updateItem(item, empty);
@@ -182,17 +200,16 @@ public class ReservationControllerController implements Initializable {
                                 if (picker.getValue().isAfter(today)) {
                                 commitEdit(item);
                                 //System.out.println(item);
-                                ss.updateDateFin(Addtv.getItems().get(getIndex()), java.sql.Date.valueOf(picker.getValue()));
-                                Addtv.getItems().get(getIndex()).setDate_fin(java.sql.Date.valueOf(picker.getValue()));
+                                ss.updateDateFin(tReservationHotel.getItems().get(getIndex()), java.sql.Date.valueOf(picker.getValue()));
+                                tReservationHotel.getItems().get(getIndex()).setFin(java.sql.Date.valueOf(picker.getValue()));
                                 }
                                 else
                                 {
-                                    Alerts.warning("Invalid Date", "End Date value cannot be before Start Date.");
-                                    Addtv.refresh();
+                                    System.out.println("o lala");
                                 }
                             });
                             // Addtv.refresh();
-                            picker.setValue(Addtv.getItems().get(getIndex()).getDate_fin().toLocalDate());
+                            picker.setValue(tReservationHotel.getItems().get(getIndex()).getFin().toLocalDate());
                             setGraphic(picker);
                             //System.out.println(picker.getValue());
                         }
@@ -201,7 +218,7 @@ public class ReservationControllerController implements Initializable {
 
                 };
             });   
-            */
+            
             delete.setCellFactory((param) -> {
                 return new TableCell() {
                     @Override
@@ -285,35 +302,6 @@ public class ReservationControllerController implements Initializable {
         showReservationHotel();
     }
     
-    public static void openrecaptchabox() {
-        Stage stageRecap = new Stage();
-        WebView webView = new WebView();
-
-        WebEngine webEngine = webView.getEngine();
-        // Delete cache for navigate back
-        webEngine.load("about:blank");
-        // Delete cookies 
-        java.net.CookieHandler.setDefault(new java.net.CookieManager());
-
-        webEngine.load("http://ramy");
-
-        VBox vBox = new VBox(webView);
-        Scene scene = new Scene(vBox, 350, 500);
-        stageRecap.setScene(scene);
-        //stageRecap.initStyle(StageStyle.UNDECORATED);
-        stageRecap.show();
-        webEngine.getLoadWorker().stateProperty().addListener((observable, oldValue, newValue) -> {
-            if (Worker.State.SUCCEEDED.equals(newValue)) {
-                String sss = webEngine.getLocation();
-                if (sss.contains("success")) {
-                    recaptchaisvalid = true;
-                    stageRecap.close();
-                }
-                //System.out.println(sss);
-            }
-        });
-
-    }
 
     @FXML
     private void listen(ActionEvent event) {
@@ -340,7 +328,7 @@ public class ReservationControllerController implements Initializable {
                     recaptchaisvalid = true;
                     stageRecap.close();
                 }
-                System.out.println(sss);
+                //System.out.println(sss);
             }
         });
     }
