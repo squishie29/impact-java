@@ -67,6 +67,7 @@ public class OptionsController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+        idO.setVisible(false);
         
         RoomService Nc = new RoomService();
         ObservableList<Integer> idc = FXCollections.observableArrayList(Nc.afficherALLID());

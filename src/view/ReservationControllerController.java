@@ -94,6 +94,7 @@ public class ReservationControllerController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        userR.setVisible(false);
         showReservationHotel();
         //HotelService Nc = new HotelService();
         RoomService Nc = new RoomService();

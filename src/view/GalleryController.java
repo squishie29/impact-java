@@ -89,7 +89,8 @@ public class GalleryController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        // TODO*
+        idG.setVisible(false);
         showGallery();
         HotelService Nc = new HotelService();
         ObservableList<Integer> IdcP = FXCollections.observableArrayList(Nc.afficherALLID());

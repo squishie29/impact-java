@@ -81,6 +81,7 @@ public class RoomController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        idR.setVisible(false);
         // TODO
         showRoom();
         HotelService Nc = new HotelService();

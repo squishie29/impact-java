@@ -103,12 +103,14 @@ public class HotelController implements Initializable {
     private Path from;
     @FXML
     private Button adc1;
+    public static Stage stage;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        tv_id.setVisible(false);
         // TODO
         showHotel();
     }
@@ -348,5 +350,7 @@ public class HotelController implements Initializable {
             
         }
     }
+
+
 
 }
