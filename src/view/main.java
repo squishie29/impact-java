@@ -26,8 +26,8 @@ public class main extends Application {
     public void start(Stage stage) throws Exception {
 
 
-       Parent root = FXMLLoader.load(getClass().getResource("reservationController.fxml"));
-       //Parent root = FXMLLoader.load(getClass().getResource("hotel.fxml"));
+      // Parent root = FXMLLoader.load(getClass().getResource("reservationController.fxml"));
+       Parent root = FXMLLoader.load(getClass().getResource("hotel.fxml"));
 
 
         Scene scene = new Scene(root);

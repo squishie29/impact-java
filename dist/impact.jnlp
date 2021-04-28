@@ -8,7 +8,7 @@
   </information>
   <resources>
     <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
-    <jar href="impact.jar" size="385788" download="eager" />
+    <jar href="impact.jar" size="498050" download="eager" />
     <jar href="lib\controlsfx-8.0.3.jar" size="561613" download="eager" />
     <jar href="lib\eclipselink.jar" size="8478776" download="eager" />
     <jar href="lib\gson-2.8.5.jar" size="241622" download="eager" />

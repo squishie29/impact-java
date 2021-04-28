@@ -45,9 +45,12 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.regex.Pattern;
 import javafx.animation.FadeTransition;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.control.Alert;
+import javafx.scene.input.KeyEvent;
 import javafx.util.Duration;
 import projet.util.connexionbd;
 import service.HotelService;
@@ -104,6 +107,12 @@ public class HotelController implements Initializable {
     @FXML
     private Button adc1;
     public static Stage stage;
+    @FXML
+    private ImageView nameCheck;
+    @FXML
+    private ImageView starsCheck;
+    @FXML
+    private ImageView adressCheck;
 
     /**
      * Initializes the controller class.
@@ -262,16 +271,21 @@ public class HotelController implements Initializable {
 
     @FXML
     private void addHotel(ActionEvent event) {
+        if( testSaisie()){
         HotelService hs = new HotelService();
         Hotel h = new Hotel();
         //insert_stars
         h.setName(insert_name.getText());
-        h.setStars(Integer.parseInt(insert_stars.getText()));
+            try {
+                h.setStars(Integer.parseInt(insert_stars.getText()));
+            } catch (NumberFormatException numberFormatException) {
+            }
         h.setAdress(insert_adress.getText());
         h.setDescription(insert_description.getText());
         h.setPhoto(upload_text.getText());
 
-        hs.addHotel(h);
+        hs.addHotel(h);}
+        
         showHotel();
 
     }
@@ -349,6 +363,86 @@ public class HotelController implements Initializable {
         } catch (IOException ex) {
             
         }
+    }
+    
+    
+    private Pattern patternName = Pattern.compile("\\b(\\w{4,})+\\b");
+    private Pattern patternStars = Pattern.compile("^[1-7]$");
+    
+
+        public boolean testName() {
+  
+        if (patternName.matcher(insert_name.getText()).matches())
+        {
+           nameCheck.setImage(new Image("Image/checkmark.png")); 
+        }
+        else
+        {
+            nameCheck.setImage(new Image("Image/alertemark.png"));
+        }
+        
+        return patternName.matcher(insert_name.getText()).matches();
+    }
+    
+    public boolean testStars() {
+  
+        if (patternStars.matcher(insert_stars.getText()).matches())
+        {
+           starsCheck.setImage(new Image("Image/checkmark.png")); 
+        }
+        else
+        {
+            starsCheck.setImage(new Image("Image/alertemark.png"));
+        }
+        
+        return (patternStars.matcher(insert_stars.getText()).matches());
+    }
+
+    private Boolean testSaisie() {
+        System.out.println(testStars());
+        String erreur = "";
+        if (!testName()) {
+            erreur = erreur + ("Veuillez verifier votre Nom: seulement des caractères et de nombre >= 3 \n");
+        }
+        if (testStars()==false) {
+            erreur = erreur + ("stars numer only");
+        }/*
+        if (!testemail()) {
+            erreur = erreur + ("Veuillez verifier que votre adresse email est de la forme : ***@***.** \n");
+        }
+        if (!testPassword()) {
+            erreur = erreur + ("Veuillez verifier votre Mot de passe: seulement des caractères et de nombre >= 3");
+        }*/
+        
+
+        if ( (!testName()) || (!testStars()) ) {
+           
+           
+           
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Erreur de format");
+        alert.setHeaderText("Vérifier les champs");
+        alert.setContentText(erreur);
+        alert.showAndWait();
+        return false;
+       
+        }
+
+        return true;
+    }
+
+    @FXML
+    private void nameCheck(KeyEvent event) {
+        testName();
+    }
+
+    @FXML
+    private void starsCheck(KeyEvent event) {
+        testStars();
+    }
+
+    @FXML
+    private void adressCheck(KeyEvent event) {
     }
 
 

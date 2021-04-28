@@ -1,0 +1,79 @@
+@import url(https://fonts.googleapis.com/css?family=Oxygen);
+*,
+*:after,
+*:before {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Oxygen", sans-serif;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: #f5f5f5;
+  margin: 0;
+  padding: 0;
+}
+
+h1 {
+  margin: 0;
+  color: #616161;
+  font-size: 3rem;
+}
+
+.container-wide {
+  max-width: 100%;
+}
+
+.banner {
+  background: #388e3c;
+  padding: 5rem 1.5rem 3rem;
+  margin-bottom: 1.5rem;
+}
+.banner h1 {
+  color: #f5f5f5;
+}
+
+.container {
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+.card {
+  background: #fff;
+  border-radius: 0.25rem;
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.12);
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 1.5rem;
+}
+.table .row-header {
+  color: #9e9e9e;
+}
+.table tr {
+  border-bottom: 1px solid #bdbdbd;
+}
+.table tr:last-child {
+  border: 0;
+}
+.table td {
+  text-align: right;
+  padding: 1.4rem 1rem;
+}
+.table .left {
+  text-align: left;
+}
+
+.table-hover > tbody > tr:hover > td,
+.table-hover > tbody > tr:hover > th {
+  background-color: rgba(56, 142, 60, 0.125);
+}
+
+.table-hover > tbody > tr:hover {
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.12);
+}
