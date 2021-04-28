@@ -400,7 +400,7 @@ public class HotelController implements Initializable {
         System.out.println(testStars());
         String erreur = "";
         if (!testName()) {
-            erreur = erreur + ("Insert a valid Hotel name");
+            erreur = erreur + ("Insert a valid Hotel name\n");
         }
         if (testStars()==false) {
             erreur = erreur + ("Stars must be between 1 and 7");

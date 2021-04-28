@@ -13,6 +13,7 @@ import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
+import java.util.regex.Pattern;
 import javafx.animation.FadeTransition;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -23,6 +24,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableCell;
@@ -33,6 +35,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.input.TouchEvent;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -76,6 +80,12 @@ public class RoomController implements Initializable {
     private TableColumn<Room, Button> delete;
     @FXML
     private ComboBox<Integer> test;
+    @FXML
+    private ImageView prixCheck;
+    @FXML
+    private ImageView typeCheck;
+    @FXML
+    private ImageView nbCheck;
 
     /**
      * Initializes the controller class.
@@ -183,6 +193,7 @@ public class RoomController implements Initializable {
     
     @FXML
     private void addRoom(ActionEvent event) {
+        if( testSaisie()){
         RoomService hs = new RoomService();
         Room h = new Room();
         //insert_stars
@@ -192,7 +203,7 @@ public class RoomController implements Initializable {
         h.setPrix(Integer.parseInt(prix.getText()));
         h.setId_hotel_id((test.getValue()));
 
-        hs.addRoom(h);
+        hs.addRoom(h);}
         showRoom();
 
     }
@@ -207,6 +218,108 @@ public class RoomController implements Initializable {
         fadeIn.setFromValue(0);
         fadeIn.setToValue(1);
         fadeIn.play();
+    }
+    
+    
+    
+    
+     private Pattern patternType = Pattern.compile("[a-zA-Z]+[ .]*[a-zA-Z]+");
+    private Pattern patternNb = Pattern.compile("^[1-4]$");
+    private Pattern patternPrix = Pattern.compile("([0-9]+)");
+    
+
+        public boolean testType() {
+  
+        if (patternType.matcher(type.getText()).matches())
+        {
+           typeCheck.setImage(new Image("Image/checkmark.png")); 
+        }
+        else
+        {
+            typeCheck.setImage(new Image("Image/alertemark.png"));
+        }
+        
+        return patternType.matcher(type.getText()).matches();
+    }
+    
+    public boolean testNb() {
+  
+        if (patternNb.matcher(nb.getText()).matches())
+        {
+           nbCheck.setImage(new Image("Image/checkmark.png")); 
+        }
+        else
+        {
+            nbCheck.setImage(new Image("Image/alertemark.png"));
+        }
+        
+        return (patternNb.matcher(nb.getText()).matches());
+    }
+    
+    
+     public boolean testPrix() {
+  
+        if (patternPrix.matcher(prix.getText()).matches())
+        {
+           prixCheck.setImage(new Image("Image/checkmark.png")); 
+        }
+        else
+        {
+            prixCheck.setImage(new Image("Image/alertemark.png"));
+        }
+        
+        return (patternPrix.matcher(prix.getText()).matches());
+    }
+
+    private Boolean testSaisie() {
+        //System.out.println(testStars());
+        String erreur = "";
+        if (!testType()) {
+            erreur = erreur + ("Insert a valid Room type\n");
+        }
+        if (testNb()==false) {
+            erreur = erreur + ("number of users must be between 1 and 4\n");
+        }
+        if (testPrix()==false) {
+            erreur = erreur + ("price must be positive");
+        }
+        
+
+        if ( (!testType()) || (!testNb()) || (!testPrix()) ) {
+           
+           
+           
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Erreur de format");
+        alert.setHeaderText("Vérifier les champs");
+        alert.setContentText(erreur);
+        alert.showAndWait();
+        return false;
+       
+        }
+
+        return true;
+    }
+    
+    
+    
+    
+
+    @FXML
+    private void typeCehck(KeyEvent event) {
+        testType();
+    }
+
+    @FXML
+    private void nbCehck(KeyEvent event) {
+        testNb();
+    }
+
+ 
+
+    @FXML
+    private void prixCheck(KeyEvent event) {
+        testPrix();
     }
 
     
