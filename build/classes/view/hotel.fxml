@@ -39,7 +39,6 @@
       <JFXButton id="line" fx:id="upload" layoutX="1106.0" layoutY="504.0" onAction="#uploadfile" stylesheets="@../css/cssButton.css" text="Upload" />
       <ImageView fx:id="nameCheck" fitHeight="37.0" fitWidth="38.0" layoutX="1169.0" layoutY="126.0" pickOnBounds="true" preserveRatio="true" />
       <ImageView fx:id="starsCheck" fitHeight="37.0" fitWidth="38.0" layoutX="1169.0" layoutY="176.0" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="adressCheck" fitHeight="37.0" fitWidth="38.0" layoutX="1169.0" layoutY="238.0" pickOnBounds="true" preserveRatio="true" />
       <JFXTextField fx:id="search" layoutX="72.0" layoutY="54.0" promptText="Search Hotel" />
    </children>
 </AnchorPane>

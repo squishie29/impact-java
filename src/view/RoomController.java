@@ -5,6 +5,7 @@
  */
 package view;
 
+import com.jfoenix.controls.JFXTextArea;
 import entity.Hotel;
 import entity.Room;
 import java.io.IOException;
@@ -64,7 +65,7 @@ public class RoomController implements Initializable {
     @FXML
     private TextField type;
     @FXML
-    private TextField description;
+    private JFXTextArea description;
     @FXML
     private TextField nb;
     @FXML

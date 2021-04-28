@@ -111,8 +111,6 @@ public class HotelController implements Initializable {
     private ImageView nameCheck;
     @FXML
     private ImageView starsCheck;
-    @FXML
-    private ImageView adressCheck;
 
     /**
      * Initializes the controller class.
@@ -366,7 +364,7 @@ public class HotelController implements Initializable {
     }
     
     
-    private Pattern patternName = Pattern.compile("\\b(\\w{4,})+\\b");
+    private Pattern patternName = Pattern.compile("[a-zA-Z0-9]+[ .]*[a-zA-Z0-9]+");
     private Pattern patternStars = Pattern.compile("^[1-7]$");
     
 
@@ -402,17 +400,11 @@ public class HotelController implements Initializable {
         System.out.println(testStars());
         String erreur = "";
         if (!testName()) {
-            erreur = erreur + ("Veuillez verifier votre Nom: seulement des caractères et de nombre >= 3 \n");
+            erreur = erreur + ("Insert a valid Hotel name");
         }
         if (testStars()==false) {
-            erreur = erreur + ("stars numer only");
-        }/*
-        if (!testemail()) {
-            erreur = erreur + ("Veuillez verifier que votre adresse email est de la forme : ***@***.** \n");
+            erreur = erreur + ("Stars must be between 1 and 7");
         }
-        if (!testPassword()) {
-            erreur = erreur + ("Veuillez verifier votre Mot de passe: seulement des caractères et de nombre >= 3");
-        }*/
         
 
         if ( (!testName()) || (!testStars()) ) {
