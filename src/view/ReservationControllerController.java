@@ -14,6 +14,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
+import java.util.regex.Pattern;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -24,6 +25,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
@@ -34,11 +36,15 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.VBox;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 import javafx.util.converter.IntegerStringConverter;
+import static org.eclipse.persistence.expressions.ExpressionOperator.today;
 import service.HotelService;
 import service.ReservationHotelService;
 import service.RoomService;
@@ -93,6 +99,8 @@ public class ReservationControllerController implements Initializable {
     public static final String AUTH_TOKEN = "78fa4a0360f61107dcb69ebcc6bff907";
     @FXML
     private TextField admin;
+    @FXML
+    private ImageView numberCheck;
     
 
     /**
@@ -287,6 +295,7 @@ public class ReservationControllerController implements Initializable {
 
     @FXML
     private void addReservationHotel(ActionEvent event) {
+        if( testSaisie()){
         
         ReservationHotelService hs = new ReservationHotelService();
         ReservationHotel h = new ReservationHotel();
@@ -296,18 +305,24 @@ public class ReservationControllerController implements Initializable {
         
         
         
-        h.setDebut(java.sql.Date.valueOf(debut.getValue()));
-        h.setFin(java.sql.Date.valueOf(fin.getValue()));
+        try {
+            h.setDebut(java.sql.Date.valueOf(debut.getValue()));
+            h.setFin(java.sql.Date.valueOf(fin.getValue()));
+        } catch (Exception e) {
+        }
         h.setConfirmation("confirmed");
         
         if(recaptchaisvalid == true){
-            hs.addReservationHotel(h);
+            try {
+                hs.addReservationHotel(h);
+            } catch (Exception e) {
+            }
         }
         else 
             System.out.println("no no no");
         
         showReservationHotel();
-        envoyerSMS();
+        envoyerSMS();}
     }
     
 
@@ -342,14 +357,76 @@ public class ReservationControllerController implements Initializable {
     }
     
     public void envoyerSMS() {
-        Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
-        com.twilio.rest.api.v2010.account.Message message = com.twilio.rest.api.v2010.account.Message.creator( //preparation d'un nouveau msg
-                new com.twilio.type.PhoneNumber("+216" + admin.getText()), // num reception
-                new com.twilio.type.PhoneNumber("+12054489231"), // num d'envoie
-                "Reservation de " +user.getValue()+" sur chambre id" +room.getValue()+"de "+debut.getValue()+"jusqu'a"+fin.getValue()+"confirmé") // le msg
-                .create(); //creation
-        System.out.println(userR.getText());
-        System.out.println(message.getSid());
+        try {
+            Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
+            com.twilio.rest.api.v2010.account.Message message = com.twilio.rest.api.v2010.account.Message.creator( //preparation d'un nouveau msg
+                    new com.twilio.type.PhoneNumber("+216" + admin.getText()), // num reception
+                    new com.twilio.type.PhoneNumber("+12054489231"), // num d'envoie
+                    "Reservation de " + user.getValue() + " sur chambre id" + room.getValue() + "de " + debut.getValue() + "jusqu'a" + fin.getValue() + "confirmé") // le msg
+                    .create(); //creation
+            System.out.println(userR.getText());
+        } catch (Exception e) {
+        }
+        //System.out.println(message.getSid());
+    }
+    
+    
+     private Pattern patternPhone = Pattern.compile("^[0-9]{8}$");
+    
+
+        public boolean testPhone() {
+  
+        if (patternPhone.matcher(admin.getText()).matches())
+        {
+           numberCheck.setImage(new Image("Image/checkmark.png")); 
+        }
+        else
+        {
+            numberCheck.setImage(new Image("Image/alertemark.png"));
+        }
+        
+        return patternPhone.matcher(admin.getText()).matches();
+    }
+    
+        
+        
+            private Boolean testSaisie() {
+                LocalDate today = LocalDate.now();
+                
+               
+        //System.out.println(testStars());
+        String erreur = "";
+        if (!testPhone()) {
+            erreur = erreur + ("Insert a valid phone number\n");
+        }
+        
+         if (debut.getValue().isBefore(today))  {
+             erreur = erreur + ("date debut !!\n");
+         }
+         if (fin.getValue().isBefore(debut.getValue()))  {
+             erreur = erreur + ("date fin!!\n");
+         }
+
+        if  ((!testPhone()) || (debut.getValue().isBefore(today)) || (fin.getValue().isBefore(debut.getValue()))  )  {
+           
+           
+           
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Erreur de format");
+        alert.setHeaderText("Vérifier les champs");
+        alert.setContentText(erreur);
+        alert.showAndWait();
+        return false;
+       
+        }
+
+        return true;
+    }
+    
+
+    @FXML
+    private void numberCheck(KeyEvent event) {
+        testPhone();
     }
     
 }

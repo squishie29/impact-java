@@ -28,7 +28,8 @@ public class main extends Application {
 
       // Parent root = FXMLLoader.load(getClass().getResource("reservationController.fxml"));
       // Parent root = FXMLLoader.load(getClass().getResource("hotel.fxml"));
-       Parent root = FXMLLoader.load(getClass().getResource("room.fxml"));
+       //Parent root = FXMLLoader.load(getClass().getResource("room.fxml"));
+       Parent root = FXMLLoader.load(getClass().getResource("reservationController.fxml"));
 
 
         Scene scene = new Scene(root);

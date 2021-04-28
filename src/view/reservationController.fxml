@@ -9,6 +9,7 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
 <AnchorPane id="AnchorPane" prefHeight="767.0" prefWidth="1086.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.ReservationControllerController">
@@ -28,11 +29,12 @@
       <TextField fx:id="confirmation" layoutX="795.0" layoutY="497.0" visible="false" />
       <ComboBox fx:id="user" layoutX="794.0" layoutY="179.0" prefWidth="150.0" visible="false" />
       <JFXTextField fx:id="search" layoutX="75.0" layoutY="74.0" promptText="search" />
-      <JFXTextField fx:id="admin" layoutX="866.0" layoutY="44.0" promptText="Admin's number" />
+      <JFXTextField fx:id="admin" layoutX="818.0" layoutY="44.0" onKeyReleased="#numberCheck" promptText="Admin's number" />
       <JFXComboBox fx:id="room" layoutX="806.0" layoutY="140.0" prefHeight="30.0" prefWidth="175.0" promptText="room" />
       <JFXDatePicker fx:id="debut" layoutX="802.0" layoutY="250.0" promptText="starting date" />
       <JFXDatePicker fx:id="fin" layoutX="802.0" layoutY="361.0" promptText="ending date" />
       <JFXCheckBox fx:id="inputrecaptcha" layoutX="806.0" layoutY="447.0" onAction="#listen" text="Recaptcha" />
       <JFXButton fx:id="update" layoutX="937.0" layoutY="442.0" onAction="#addReservationHotel" text="add" />
+      <ImageView fx:id="numberCheck" fitHeight="38.0" fitWidth="44.0" layoutX="995.0" layoutY="40.0" pickOnBounds="true" preserveRatio="true" />
    </children>
 </AnchorPane>
