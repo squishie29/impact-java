@@ -5,6 +5,7 @@
  */
 package view;
 
+import com.jfoenix.controls.JFXTextArea;
 import entity.Options;
 import entity.Room;
 import java.io.IOException;
@@ -54,7 +55,7 @@ public class OptionsController implements Initializable {
     @FXML
     private TableColumn<Options, Button> delete;
     @FXML
-    private TextField description;
+    private JFXTextArea description;
     @FXML
     private ComboBox<Integer> roomId;
     @FXML

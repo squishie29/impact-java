@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXTextArea?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
@@ -17,11 +19,11 @@
             <TableColumn fx:id="delete" prefWidth="141.0" text="action" />
         </columns>
       </TableView>
-      <TextField fx:id="description" layoutX="941.0" layoutY="289.0" promptText="description" />
-      <Button layoutX="987.0" layoutY="395.0" mnemonicParsing="false" onAction="#addOptions" text="Button" />
-      <ComboBox fx:id="roomId" layoutX="954.0" layoutY="345.0" prefWidth="150.0" promptText="Room id" />
       <TextField fx:id="search" layoutX="324.0" layoutY="90.0" />
       <Button layoutX="412.0" layoutY="703.0" mnemonicParsing="false" onAction="#galleriez" text="Button" />
-      <Button layoutX="528.0" layoutY="90.0" mnemonicParsing="false" onAction="#rechercheOption" text="Button" />
+      <JFXButton layoutX="499.0" layoutY="90.0" onAction="#rechercheOption" text="Search" />
+      <JFXComboBox fx:id="roomId" layoutX="934.0" layoutY="163.0" prefHeight="30.0" prefWidth="230.0" promptText="Room" />
+      <JFXButton layoutX="1026.0" layoutY="519.0" onAction="#addOptions" text="Add" />
+      <JFXTextArea fx:id="description" layoutX="934.0" layoutY="290.0" prefHeight="183.0" prefWidth="230.0" promptText="description" />
    </children>
 </AnchorPane>

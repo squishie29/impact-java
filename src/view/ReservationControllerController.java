@@ -298,7 +298,7 @@ public class ReservationControllerController implements Initializable {
         
         h.setDebut(java.sql.Date.valueOf(debut.getValue()));
         h.setFin(java.sql.Date.valueOf(fin.getValue()));
-        h.setConfirmation((confirmation.getText()));
+        h.setConfirmation("confirmed");
         
         if(recaptchaisvalid == true){
             hs.addReservationHotel(h);

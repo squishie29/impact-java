@@ -64,8 +64,6 @@ public class GalleryController implements Initializable {
     @FXML
     private TableColumn<Gallery, Button> delete;
     @FXML
-    private TextField search;
-    @FXML
     private TextField upload_text;
     @FXML
     private Button upload;
