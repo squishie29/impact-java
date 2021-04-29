@@ -43,7 +43,7 @@ public class RoomService {
     public ResultSet getAll() {
          
         try {
-            PreparedStatement req = c.prepareStatement("SELECT * FROM room ");
+            PreparedStatement req = c.prepareStatement("SELECT R.type,R.id,R.nb_personnes,R.description,R.prix,R.id_hotel_id,H.name FROM `room` R LEFT OUTER JOIN `hotel` H ON R.id_hotel_id = H.id");
             ResultSet rs = req.executeQuery();
             return rs;
         } catch (SQLException ex) {

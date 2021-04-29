@@ -1,11 +1,99 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1">
-    
+<AnchorPane id="bg" fx:id="anchorpane" prefHeight="773.0" prefWidth="1256.0" stylesheets="@../css/test2.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.FrontHotelController">
+   <children>
+      <TableView id="cell" fx:id="hotel_tv" layoutX="261.0" layoutY="128.0" opacity="0.74" prefHeight="558.0" prefWidth="962.0" style="-fx-background-color: transparent;" stylesheets="@../css/test2.css">
+        <columns>
+            <TableColumn fx:id="tv_photo" editable="false" prefWidth="75.0" text="Photo" />
+          <TableColumn fx:id="tv_name" editable="false" prefWidth="75.0" text="name" />
+            <TableColumn fx:id="tv_stars" editable="false" prefWidth="75.0" text="stars" />
+            <TableColumn fx:id="tv_description" editable="false" prefWidth="75.0" text="Description" />
+            <TableColumn fx:id="tv_adress" editable="false" prefWidth="75.0" text="adress" />
+            <TableColumn fx:id="delete" prefWidth="75.0" text="delete" visible="false" />
+            <TableColumn fx:id="update" prefWidth="75.0" text="update" visible="false" />
+            <TableColumn fx:id="tv_id" prefWidth="75.0" text="name" visible="false" />
+            <TableColumn fx:id="show" editable="false" prefWidth="75.0" text="show" />
+        </columns>
+         <columnResizePolicy>
+            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+         </columnResizePolicy>
+      </TableView>
+      <VBox id="navbar" prefHeight="773.0" prefWidth="214.0" stylesheets="@../css/test2.css">
+         <children>
+            <HBox prefHeight="85.0" prefWidth="214.0">
+               <children>
+                  <Pane prefHeight="35.0" prefWidth="200.0">
+                     <children>
+                        <ImageView fitHeight="85.0" fitWidth="60.0" layoutX="14.0" layoutY="13.0" nodeOrientation="RIGHT_TO_LEFT" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../imageshotel/Ez5jL36XMAAQ8gt.jpeg" />
+                           </image>
+                        </ImageView>
+                        <Label layoutX="82.0" layoutY="18.0" prefHeight="49.0" prefWidth="118.0" text="QUESTLINE" textFill="WHITE">
+                           <font>
+                              <Font name="Arial" size="20.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </Pane>
+               </children>
+            </HBox>
+            <Button id="navbtn" mnemonicParsing="false" onAction="#HotelDep" prefHeight="58.0" prefWidth="214.0" stylesheets="@../css/test2.css" text="HOTELS DEPARTEMENT" textFill="#dddddd">
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </Button>
+            <Button id="navbtn" layoutX="10.0" layoutY="90.0" mnemonicParsing="false" prefHeight="58.0" prefWidth="214.0" stylesheets="@../css/test2.css" text="HOTELS DEPARTEMENT" textFill="#dddddd">
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </Button>
+            <Button id="navbtn" layoutX="10.0" layoutY="148.0" mnemonicParsing="false" prefHeight="58.0" prefWidth="214.0" stylesheets="@../css/test2.css" text="HOTELS DEPARTEMENT" textFill="#dddddd">
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </Button>
+            <Button id="navbtn" layoutX="10.0" layoutY="206.0" mnemonicParsing="false" prefHeight="58.0" prefWidth="214.0" stylesheets="@../css/test2.css" text="HOTELS DEPARTEMENT" textFill="#dddddd">
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </Button>
+            <Button id="navbtn" layoutX="10.0" layoutY="269.0" mnemonicParsing="false" prefHeight="58.0" prefWidth="214.0" stylesheets="@../css/test2.css" text="HOTELS DEPARTEMENT" textFill="#dddddd">
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </Button>
+         </children>
+      </VBox>
+      <Line endX="976.0" endY="1.52587890625E-5" layoutX="280.0" layoutY="86.0" opacity="0.56" startX="-280.0" startY="1.52587890625E-5" />
+      <Pane layoutX="214.0" prefHeight="67.0" prefWidth="1039.0">
+         <children>
+            <ImageView fitHeight="58.0" fitWidth="60.0" layoutX="14.0" layoutY="13.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../Image/transparent-reception-icon-hotel-icon-receptionist-icon-5e1cde5167a994.0046180115789502254246.jpg" />
+               </image>
+            </ImageView>
+            <Line endX="-33.5" endY="45.0" layoutX="127.0" layoutY="22.0" startX="-33.5" startY="-5.5" stroke="WHITE" />
+            <Button id="navbtn" layoutX="128.0" layoutY="27.0" mnemonicParsing="false" onAction="#HotelDep" stylesheets="@../css/test2.css" text="Hotel" textFill="WHITE" />
+            <Button id="navbtn" fx:id="adc1" layoutX="220.0" layoutY="27.0" mnemonicParsing="false" onAction="#roomz" stylesheets="@../css/test2.css" text="Rooms" textFill="WHITE" />
+            <JFXTextField fx:id="search" alignment="CENTER" focusColor="#1a2c61" layoutX="809.0" layoutY="22.0" promptText="Search Hotel" unFocusColor="WHITE" />
+            <Line endX="-33.5" endY="45.0" layoutX="790.0" layoutY="22.0" startX="-33.5" startY="-5.5" stroke="WHITE" />
+            <Label fx:id="link" layoutX="556.0" layoutY="27.0" text="link" textFill="TRANSPARENT" />
+         </children>
+      </Pane>
+   </children>
 </AnchorPane>

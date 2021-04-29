@@ -46,7 +46,7 @@ public class ReservationHotelService {
     public ResultSet getAll() {
          
         try {
-            PreparedStatement req = c.prepareStatement("SELECT R.user_id_id,R.id,R.room_id_id,R.debut,R.fin,R.confirmation,U.email FROM `reservation_hotel` R LEFT OUTER JOIN `utilisateur` U ON R.user_id_id = U.id ");
+            PreparedStatement req = c.prepareStatement("SELECT R.user_id_id,R.id,R.debut,R.room_id_id,R.fin,R.confirmation,U.email,B.type FROM `reservation_hotel` R LEFT OUTER JOIN `utilisateur` U ON R.user_id_id = U.id LEFT OUTER JOIN `room` B ON R.room_id_id = B.id ");
             ResultSet rs = req.executeQuery();
             return rs;
         } catch (SQLException ex) {

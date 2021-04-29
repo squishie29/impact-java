@@ -9,7 +9,6 @@ import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfWriter;
-import com.jfoenix.controls.JFXButton;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -51,6 +50,7 @@ import javafx.animation.FadeTransition;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Label;
 import javafx.scene.input.KeyEvent;
 import javafx.util.Duration;
 import projet.util.connexionbd;
@@ -61,7 +61,7 @@ import service.HotelService;
  *
  * @author Rami Guesmi
  */
-public class HotelController implements Initializable {
+public class FrontHotelController implements Initializable {
 
     @FXML
     private TableView<Hotel> hotel_tv;
@@ -87,31 +87,25 @@ public class HotelController implements Initializable {
     private AnchorPane anchorpane;
     private FileChooser fileChooser;
     private File file;
-    @FXML
     private TextField insert_stars;
-    @FXML
     private TextField insert_name;
-    @FXML
     private TextArea insert_description;
-    @FXML
     private TextField insert_adress;
-    @FXML
     private TextField upload_text;
-    @FXML
     private ImageView view_image_hotel;
     private Path to;
     private Path from;
     @FXML
     private Button adc1;
     public static Stage stage;
-    @FXML
     private ImageView nameCheck;
-    @FXML
     private ImageView starsCheck;
     @FXML
-    private JFXButton add;
+    private TableColumn<Hotel, Button> show;
+    public static Hotel hotelShow = new Hotel();
     @FXML
-    private JFXButton upload;
+    public static Label link;
+    public static int countroom;
 
     /**
      * Initializes the controller class.
@@ -155,31 +149,33 @@ public class HotelController implements Initializable {
             }
 
             //doubleClickShowPiece();
-            update.setCellFactory((param) -> {
+            show.setCellFactory((param) -> {
                 return new TableCell() {
                     @Override
                     protected void updateItem(Object item, boolean empty) {
+                         HotelService hs = new HotelService();
                         setGraphic(null);
                         if (!empty) {
-                            Button b = new Button("change image");
+                            Button b = new Button("show");
                             b.setOnAction((event) -> {
 
-                                FileChooser filechooser = new FileChooser();
-                                Stage stage = (Stage) anchorpane.getScene().getWindow();
-                                filechooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("All Images", "*.*"));
-                                file = filechooser.showOpenDialog(stage);
-                                if (file != null) {
-                                    System.out.println();
-                                    ImageView a = new ImageView();
-                                    Image image = new Image(file.toURI().toString(), 80, 80, true, true);
-                                    a.setImage(image);
-
-                                    ss.updatePhoto(hotel_tv.getItems().get(getIndex()), String.valueOf(file));
-
-                                    hotel_tv.getItems().get(getIndex()).setPhoto_view(a);
-                                    hotel_tv.refresh();
-
+                             
+                             
+                                try {
+                                    hotelShow=hs.getonehotel(hotel_tv.getItems().get(getIndex()).getId());
+                                    countroom = hs.countroomsbyhotel(hotel_tv.getItems().get(getIndex()).getId());
+                                    System.out.println(hotelShow);
+                                    FXMLLoader loader = new FXMLLoader(getClass().getResource("ShowHotels.fxml"));
+                                    Parent root = loader.load();
+                                    hotel_tv.getScene().setRoot(root);
+                                    
+                                    FadeTransition fadeIn = new FadeTransition(Duration.seconds(1), root);
+                                    fadeIn.setFromValue(0);
+                                    fadeIn.setToValue(1);
+                                    fadeIn.play();          } catch (IOException ex) {
+                                    Logger.getLogger(FrontHotelController.class.getName()).log(Level.SEVERE, null, ex);
                                 }
+                                
                             });
                             setGraphic(b);
                         }
@@ -252,7 +248,6 @@ public class HotelController implements Initializable {
         });
     }
 
-    @FXML
     private void uploadfile(ActionEvent event) throws IOException {
         FileChooser filechooser = new FileChooser();
         Stage stage1 = (Stage) anchorpane.getScene().getWindow();
@@ -269,7 +264,6 @@ public class HotelController implements Initializable {
         }
     }
 
-    @FXML
     private void addHotel(ActionEvent event) {
         if( testSaisie()){
         HotelService hs = new HotelService();
@@ -424,18 +418,25 @@ public class HotelController implements Initializable {
         return true;
     }
 
-    @FXML
     private void nameCheck(KeyEvent event) {
         testName();
     }
 
-    @FXML
     private void starsCheck(KeyEvent event) {
         testStars();
     }
 
     @FXML
-    private void adressCheck(KeyEvent event) {
+    private void HotelDep(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("FrontHotel.fxml"));
+        Parent root = loader.load();
+        hotel_tv.getScene().setRoot(root);
+
+        FadeTransition fadeIn = new FadeTransition(Duration.seconds(1), root);
+        fadeIn.setFromValue(0);
+        fadeIn.setToValue(1);
+        fadeIn.play();
+        
     }
 
 

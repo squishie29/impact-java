@@ -101,6 +101,8 @@ public class ReservationControllerController implements Initializable {
     private TextField admin;
     @FXML
     private ImageView numberCheck;
+    @FXML
+    private TableColumn<?, ?> typeR1;
     
 
     /**
@@ -128,6 +130,7 @@ public class ReservationControllerController implements Initializable {
             
             idR.setCellValueFactory(new PropertyValueFactory<>("id"));
             emailR.setCellValueFactory(new PropertyValueFactory<>("email"));
+            typeR1.setCellValueFactory(new PropertyValueFactory<>("type"));
             userR.setCellValueFactory(new PropertyValueFactory<>("user_id_id"));
             roomR.setCellValueFactory(new PropertyValueFactory<>("room_id_id"));
             debutR.setCellValueFactory(new PropertyValueFactory<>("debut"));
@@ -150,6 +153,7 @@ public class ReservationControllerController implements Initializable {
                 r1.setConfirmation(resultset.getString("confirmation"));
                 
                 r1.setEmail(resultset.getString("email"));
+                r1.setType(resultset.getString("type"));
                 
                 System.out.println(resultset.getString("email"));
                 

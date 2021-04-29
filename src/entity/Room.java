@@ -18,6 +18,7 @@ public class Room {
 
     private int prix;
     private int id_hotel_id;
+    private String name;
 
     public Room() {
     }
@@ -35,6 +36,14 @@ public class Room {
         this.type = type;
         this.prix = prix;
         this.id_hotel_id = id_hotel_id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
 

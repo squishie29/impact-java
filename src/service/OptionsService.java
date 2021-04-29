@@ -37,7 +37,7 @@ public class OptionsService {
     public ResultSet getAll() {
          
         try {
-            PreparedStatement req = c.prepareStatement("SELECT * FROM options ");
+            PreparedStatement req = c.prepareStatement("SELECT O.id,O.description,O.room_id_id,R.type,H.name FROM `options` O LEFT OUTER JOIN `room` R ON O.room_id_id = R.id LEFT OUTER JOIN `hotel` H ON R.id_hotel_id = H.id");
             ResultSet rs = req.executeQuery();
             return rs;
         } catch (SQLException ex) {

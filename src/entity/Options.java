@@ -27,6 +27,8 @@ public class Options {
     private Integer id;
     private String description;
     private Integer room_id_id;
+    private String type;
+     private String name;
 
     
     
@@ -45,6 +47,23 @@ public class Options {
         this.description = description;
         this.room_id_id = room_id_id; 
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
     
     
 

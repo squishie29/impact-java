@@ -81,6 +81,8 @@ public class GalleryController implements Initializable {
     private Path to;
     @FXML
     private ImageView view_image_gallery;
+    @FXML
+    private TableColumn<?, ?> hotelG;
 
     /**
      * Initializes the controller class.
@@ -108,12 +110,14 @@ public class GalleryController implements Initializable {
             
             imgG.setCellValueFactory(new PropertyValueFactory<>("photo_view"));
             idHotel.setCellValueFactory(new PropertyValueFactory<>("hotel_id_id"));
+            hotelG.setCellValueFactory(new PropertyValueFactory<>("name"));
             while (resultset.next()) {
                 Gallery r1 = new Gallery();
                 r1.setId(resultset.getInt("id"));
                 r1.setImgpath(resultset.getString("imgpath"));
                 r1.setHotel_id_id(resultset.getInt("hotel_id_id"));
-                System.out.println(resultset.getInt("hotel_id_id"));
+                r1.setName(resultset.getString("name"));
+                //System.out.println(resultset.getInt("hotel_id_id"));
                 
                 ImageView a = new ImageView();
                 Image img = new Image("file:" + resultset.getString("imgpath"));

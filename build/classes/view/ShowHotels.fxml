@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -14,24 +11,11 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="bg" fx:id="anchorpane" prefHeight="773.0" prefWidth="1256.0" stylesheets="@../css/test2.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.FrontHotelController">
+<AnchorPane id="bg" fx:id="anchorpane" prefHeight="773.0" prefWidth="1256.0" stylesheets="@../css/test2.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.ShowHotelsController">
    <children>
-      <TableView id="cell" fx:id="hotel_tv" layoutX="261.0" layoutY="128.0" opacity="0.74" prefHeight="558.0" prefWidth="962.0" style="-fx-background-color: transparent;" stylesheets="@../css/test2.css">
-        <columns>
-            <TableColumn fx:id="tv_photo" editable="false" prefWidth="75.0" text="Photo" />
-          <TableColumn fx:id="tv_name" editable="false" prefWidth="75.0" text="name" />
-            <TableColumn fx:id="tv_stars" editable="false" prefWidth="75.0" text="stars" />
-            <TableColumn fx:id="tv_description" editable="false" prefWidth="75.0" text="Description" />
-            <TableColumn fx:id="tv_adress" editable="false" prefWidth="75.0" text="adress" />
-            <TableColumn fx:id="delete" prefWidth="75.0" text="delete" visible="false" />
-            <TableColumn fx:id="update" prefWidth="75.0" text="update" visible="false" />
-            <TableColumn fx:id="tv_id" prefWidth="75.0" text="name" visible="false" />
-            <TableColumn fx:id="show" editable="false" prefWidth="75.0" text="show" />
-        </columns>
-         <columnResizePolicy>
-            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-         </columnResizePolicy>
-      </TableView>
+      <ImageView fx:id="view_image_hotel" fitHeight="199.0" fitWidth="242.0" layoutX="566.0" layoutY="534.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="nameCheck" fitHeight="37.0" fitWidth="38.0" layoutX="1169.0" layoutY="126.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="starsCheck" fitHeight="37.0" fitWidth="38.0" layoutX="1169.0" layoutY="176.0" pickOnBounds="true" preserveRatio="true" />
       <VBox id="navbar" prefHeight="773.0" prefWidth="214.0" stylesheets="@../css/test2.css">
          <children>
             <HBox prefHeight="85.0" prefWidth="214.0">
@@ -79,8 +63,8 @@
             </Button>
          </children>
       </VBox>
-      <Line endX="976.0" endY="1.52587890625E-5" layoutX="280.0" layoutY="86.0" opacity="0.56" startX="-280.0" startY="1.52587890625E-5" />
-      <Pane layoutX="214.0" prefHeight="67.0" prefWidth="1039.0">
+      <Line endX="1321.0" layoutX="-103.0" layoutY="125.0" opacity="0.11" startX="400.0" stroke="WHITE" strokeWidth="3.0" />
+      <Pane layoutX="214.0" prefHeight="67.0" prefWidth="1039.0" style="-fx-region-border: 5px black;">
          <children>
             <ImageView fitHeight="58.0" fitWidth="60.0" layoutX="14.0" layoutY="13.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -89,11 +73,45 @@
             </ImageView>
             <Line endX="-33.5" endY="45.0" layoutX="127.0" layoutY="22.0" startX="-33.5" startY="-5.5" stroke="WHITE" />
             <Button id="navbtn" layoutX="128.0" layoutY="27.0" mnemonicParsing="false" onAction="#HotelDep" stylesheets="@../css/test2.css" text="Hotel" textFill="WHITE" />
-            <Button id="navbtn" fx:id="adc1" layoutX="220.0" layoutY="27.0" mnemonicParsing="false" onAction="#roomz" stylesheets="@../css/test2.css" text="Rooms" textFill="WHITE" />
-            <JFXTextField fx:id="search" alignment="CENTER" focusColor="#1a2c61" layoutX="809.0" layoutY="22.0" promptText="Search Hotel" unFocusColor="WHITE" />
-            <Line endX="-33.5" endY="45.0" layoutX="790.0" layoutY="22.0" startX="-33.5" startY="-5.5" stroke="WHITE" />
-            <Label fx:id="link" layoutX="556.0" layoutY="27.0" text="link" textFill="TRANSPARENT" />
          </children>
       </Pane>
+      <ImageView fx:id="image" fitHeight="241.0" fitWidth="342.0" layoutX="323.0" layoutY="154.0" pickOnBounds="true" preserveRatio="true" />
+      <Label fx:id="name" layoutX="700.0" layoutY="151.0" prefHeight="50.0" prefWidth="280.0" text="Name" textFill="WHITE">
+         <font>
+            <Font size="34.0" />
+         </font>
+      </Label>
+      <Label fx:id="stars" layoutX="1007.0" layoutY="151.0" text="Stars" textFill="WHITE">
+         <font>
+            <Font size="34.0" />
+         </font>
+      </Label>
+      <Label fx:id="adress" layoutX="725.0" layoutY="238.0" text="Adress" textFill="WHITE">
+         <font>
+            <Font size="34.0" />
+         </font>
+      </Label>
+      <Label fx:id="description" layoutX="710.0" layoutY="325.0" prefHeight="279.0" prefWidth="489.0" text="description" textFill="WHITE">
+         <font>
+            <Font size="34.0" />
+         </font>
+      </Label>
+      <Label fx:id="count" layoutX="1095.0" layoutY="238.0" text="ch" textFill="WHITE">
+         <font>
+            <Font size="34.0" />
+         </font>
+      </Label>
+      <Line endX="445.5" endY="337.0" layoutX="-150.0" layoutY="335.0" opacity="0.11" startX="445.5" startY="-208.5" stroke="WHITE" strokeWidth="3.0" />
+      <Line endX="437.0" endY="328.5" layoutX="-140.0" layoutY="345.0" opacity="0.11" startX="1355.0" startY="321.0" stroke="WHITE" strokeWidth="3.0" />
+      <Line endX="1349.5" endY="-228.5" layoutX="-130.0" layoutY="355.0" opacity="0.11" startX="1347.121337890625" startY="308.87872314453125" stroke="WHITE" strokeWidth="3.0" />
+      <ImageView fitHeight="37.0" fitWidth="46.0" layoutX="970.0" layoutY="158.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../Image/5-point-stars-png-star-icon-flat-11562958768wpf63hu4tq.png" />
+         </image>
+      </ImageView>
+      <Line endX="853.0" layoutX="-50.0" layoutY="201.0" startX="752.0" stroke="WHITE" />
+      <Line endX="862.0" layoutX="219.0" layoutY="201.0" startX="752.0" stroke="WHITE" />
+      <Line endX="862.0" layoutX="-26.0" layoutY="288.0" startX="752.0" stroke="WHITE" />
+      <Line endX="835.0" layoutX="305.0" layoutY="288.0" startX="783.0" stroke="WHITE" />
    </children>
 </AnchorPane>

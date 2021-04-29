@@ -3,10 +3,17 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/D:/pidevjava/impact/src/view/FrontHotelController.java</file>
+            <file>file:/D:/pidevjava/impact/src/service/HotelService.java</file>
+            <file>file:/D:/pidevjava/impact/src/view/GalleryController.java</file>
+            <file>file:/D:/pidevjava/impact/src/view/hotel.fxml</file>
             <file>file:/D:/pidevjava/impact/src/view/FrontHotel.fxml</file>
+            <file>file:/D:/pidevjava/impact/src/view/main.java</file>
             <file>file:/D:/pidevjava/impact/src/view/ReservationControllerController.java</file>
-            <file>file:/D:/pidevjava/impact/src/entity/ReservationHotel.java</file>
-            <file>file:/D:/pidevjava/impact/src/service/ReservationHotelService.java</file>
+            <file>file:/D:/pidevjava/impact/src/view/ShowHotels.fxml</file>
+            <file>file:/D:/pidevjava/impact/src/service/RoomService.java</file>
+            <file>file:/D:/pidevjava/impact/src/entity/Hotel.java</file>
+            <file>file:/D:/pidevjava/impact/src/view/ShowHotelsController.java</file>
         </group>
     </open-files>
 </project-private>

@@ -42,7 +42,7 @@ public class GalleryService {
     public ResultSet getAll() {
          
         try {
-            PreparedStatement req = c.prepareStatement("SELECT * FROM Gallery ");
+            PreparedStatement req = c.prepareStatement("SELECT G.id,G.imgpath,G.hotel_id_id,H.name FROM `gallery` G LEFT OUTER JOIN `hotel` H ON G.hotel_id_id = H.id ");
             ResultSet rs = req.executeQuery();
             return rs;
         } catch (SQLException ex) {

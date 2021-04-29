@@ -133,4 +133,23 @@ return ok;
         }
         return listID;
     }   
+ 
+ 
+ public int countroomsbyhotel(int newvalue){
+       int  count=0;
+         try {
+             PreparedStatement req = c.prepareStatement("select count(*) from room where id_hotel_id=?");
+              req.setInt(1, newvalue);
+              ResultSet rs = req.executeQuery();
+    while (rs.next()) {
+      count = rs.getInt(1);
+      return count;
+    }
+         } catch (SQLException ex) {
+             System.out.println(ex);
+         }
+       
+         
+         return count;
+     }
 }

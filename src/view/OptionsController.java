@@ -61,6 +61,10 @@ public class OptionsController implements Initializable {
     @FXML
     private TextField search;
     ObservableList<Options> list = FXCollections.observableArrayList();
+    @FXML
+    private TableColumn<Options, String> roomO1;
+    @FXML
+    private TableColumn<?, ?> hotelO;
 
     /**
      * Initializes the controller class.
@@ -90,12 +94,16 @@ public class OptionsController implements Initializable {
             idO.setCellValueFactory(new PropertyValueFactory<>("id"));
             descO.setCellValueFactory(new PropertyValueFactory<>("description"));
             idR.setCellValueFactory(new PropertyValueFactory<>("room_id_id"));
+             roomO1.setCellValueFactory(new PropertyValueFactory<>("type"));
+             hotelO.setCellValueFactory(new PropertyValueFactory<>("name"));
             while (resultset.next()) {
                 Options r1 = new Options();
                 r1.setId(resultset.getInt("id"));
                
                 r1.setDescription(resultset.getString("description"));
                 r1.setRoom_id_id(resultset.getInt("room_id_id"));
+                r1.setType(resultset.getString("type"));
+                r1.setName(resultset.getString("name"));
                 
                 listOptions.add(r1);
 

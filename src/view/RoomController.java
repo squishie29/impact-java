@@ -86,6 +86,8 @@ public class RoomController implements Initializable {
     private ImageView typeCheck;
     @FXML
     private ImageView nbCheck;
+    @FXML
+    private TableColumn<?, ?> hotelR;
 
     /**
      * Initializes the controller class.
@@ -113,6 +115,7 @@ public class RoomController implements Initializable {
             nbR.setCellValueFactory(new PropertyValueFactory<>("nbPersonnes"));
             prixR.setCellValueFactory(new PropertyValueFactory<>("prix"));
             idH.setCellValueFactory(new PropertyValueFactory<>("id_hotel_id"));
+            hotelR.setCellValueFactory(new PropertyValueFactory<>("name"));
             while (resultset.next()) {
                 Room r1 = new Room();
                 r1.setId(resultset.getInt("id"));
@@ -122,6 +125,7 @@ public class RoomController implements Initializable {
                 r1.setPrix(resultset.getInt("prix"));
                 r1.setNbPersonnes(resultset.getInt("nb_personnes"));
                 r1.setId_hotel_id(resultset.getInt("id_hotel_id"));
+                r1.setName(resultset.getString("name"));
                 listRooms.add(r1);
 
             }

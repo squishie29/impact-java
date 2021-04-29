@@ -19,6 +19,7 @@ public class ReservationHotel {
     private Date fin;
     private String confirmation;
     private String email;
+    private String type;
 
     @Override
     public String toString() {
@@ -35,6 +36,14 @@ public class ReservationHotel {
     }
 
     public ReservationHotel() {
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
 

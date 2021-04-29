@@ -16,6 +16,7 @@ public class Gallery {
     private String imgpath;
     private Integer hotel_id_id;
     private ImageView photo_view;
+    private String name;
 
     public Gallery() {
     }
@@ -39,6 +40,14 @@ public class Gallery {
 
     public void setHotel_id_id(Integer hotel_id_id) {
         this.hotel_id_id = hotel_id_id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
 
